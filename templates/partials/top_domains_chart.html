@@ -1,0 +1,32 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">Top Domains Chart</div>
+    <div class="card-body">
+        <canvas id="topDomainsChart" height="100"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('topDomainsChart').getContext('2d');
+    const labels = {{ domains | map(attribute=0) | list | safe }};
+    const counts = {{ domains | map(attribute=1) | list | safe }};
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Visits',
+                data: counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>

@@ -1,0 +1,7 @@
+asyncio
+logging
+dnslib
+httpx
+aiosqlite
+fastapi 
+uvicorn
