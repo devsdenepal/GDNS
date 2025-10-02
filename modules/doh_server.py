@@ -13,7 +13,10 @@ app = FastAPI()
 # Templates & static files for dashboard
 templates = Jinja2Templates(directory="templates")
 # app.mount("/static", StaticFiles(directory="static"), name="static")
-          
+@app.get("/", response_class=HTMLResponse)
+def index_visit(request: Request):
+    return templates.TemplateResponse("index.html", {"request":request})
+
 @app.post("/")
 async def doh_endpoint(request: Request):
     client_ip = request.client.host

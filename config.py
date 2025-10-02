@@ -1,4 +1,4 @@
-LISTEN_ADDR = "192.168.1.8"
+LISTEN_ADDR = "0.0.0.0"
 UDP_PORT = 5350
 DOH_PORT = 443
 UPSTREAM_DOH = "https://dns.google/dns-query"
