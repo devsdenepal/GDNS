@@ -2,8 +2,8 @@ import socket
 import struct
 import random
 
-SERVER = ("192.168.1.8", 5350)  # Your DNS/DoH UDP server port (must support UDP)
-CLIENT_IPS = ["192.168.1.88","192.168.1.89","192.168.1.90"]  # Simulated client IPs
+SERVER = ("192.168.1.8", 5350)  
+CLIENT_IPS = ["192.168.1.88","192.168.1.89","192.168.1.90"] 
 
 def build_query(domain: str):
     # Build a simple A record DNS query
@@ -27,12 +27,10 @@ def send_query(domain: str, source_ip: str):
     finally:
         sock.close()
     
-    # Parse DNS response
     tid, flags, qdcount, ancount, nscount, arcount = struct.unpack(">HHHHHH", data[:12])
     print(f"{source_ip} -> {domain} : {ancount} answer(s)")
     
     offset = 12
-    # Skip question section
     while data[offset] != 0:
         offset += data[offset] + 1
     offset += 5  # null byte + qtype(2) + qclass(2)
@@ -50,6 +48,5 @@ def send_query(domain: str, source_ip: str):
 if __name__ == "__main__":
     domains = ["google.com", "youtube.com","facebook.com"]
     for domain in domains:
-        # Pick a random client IP to simulate multiple clients
         src_ip = random.choice(CLIENT_IPS)
         send_query(domain, src_ip)

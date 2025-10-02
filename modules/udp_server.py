@@ -22,16 +22,16 @@ async def handle_udp_query(loop, sock, session):
                 if resp.status == 200:
                     answer = await resp.read()
 
-                    # Safely send response
+                   
                     try:
                         await loop.sock_sendto(sock, answer, addr)
                     except ConnectionResetError:
-                        # Client disconnected before receiving response
+                 
                         print(f"[WARN] Client {client_ip} disconnected before receiving answer")
                     except Exception as e:
                         print(f"[ERROR] Sending response failed: {e}")
 
-                    # Parse and log IPs
+            
                     ips = parse_dns_response(answer)
                     log_query(client_ip, domain, ips)
                 else:
