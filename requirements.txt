@@ -1,7 +1,8 @@
-asyncio
-logging
 dnslib
 httpx
+aiohttp
 aiosqlite
-fastapi 
-uvicorn
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
