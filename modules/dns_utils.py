@@ -23,12 +23,15 @@ def parse_dns_response(data):
     return results
 
 def extract_domain(data):
-    """Extract queried domain from DNS query."""
-    domain = []
-    offset = 12
-    length = data[offset]
-    while length > 0:
-        domain.append(data[offset+1:offset+1+length].decode())
-        offset += length + 1
+    """Extract queried domain from DNS query. Returns "" for malformed input."""
+    try:
+        domain = []
+        offset = 12
         length = data[offset]
-    return ".".join(domain)
+        while length > 0:
+            domain.append(data[offset+1:offset+1+length].decode())
+            offset += length + 1
+            length = data[offset]
+        return ".".join(domain)
+    except Exception:
+        return ""

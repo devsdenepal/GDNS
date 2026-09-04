@@ -1,6 +1,7 @@
 import sqlite3, time
+from config import DB_PATH
 
-conn = sqlite3.connect("new_dns_logs.db", check_same_thread=False)
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 cur = conn.cursor()
 cur.execute("""
 CREATE TABLE IF NOT EXISTS logs (
